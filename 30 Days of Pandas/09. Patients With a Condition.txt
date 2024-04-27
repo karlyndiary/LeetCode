@@ -39,5 +39,5 @@ Explanation: Bob and George both have a condition that starts with DIAB1.
 import pandas as pd
 
 def find_patients(patients: pd.DataFrame) -> pd.DataFrame:
-    df = patients[patients['conditions'].str.contains('DIAB1')]
+    df = patients[patients['conditions'].str.contains(r'\bDIAB1')]
     return df
