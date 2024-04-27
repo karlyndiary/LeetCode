@@ -35,3 +35,8 @@ Output:
 | 2  | bob@example.com  |
 +----+------------------+
 Explanation: john@example.com is repeated two times. We keep the row with the smallest Id = 1.
+
+import pandas as pd
+
+def delete_duplicate_emails(person: pd.DataFrame) -> None:
+   person.drop_duplicates(subset = ['email'], inplace=True)
