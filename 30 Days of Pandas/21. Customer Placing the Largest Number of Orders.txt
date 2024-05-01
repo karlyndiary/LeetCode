@@ -35,3 +35,9 @@ Explanation:
 The customer with number 3 has two orders, which is greater than either customer 1 or 2 because each of them only has one order. 
 So the result is customer_number 3.
 
+import pandas as pd
+
+def largest_orders(orders: pd.DataFrame) -> pd.DataFrame:
+    df = orders.groupby(['customer_number'])['order_number'].count().reset_index()
+    result = df.sort_values(by = 'order_number', ascending = False).head(1)[['customer_number']]
+    return result
