@@ -61,3 +61,9 @@ The unique ID of Meir is 2.
 The unique ID of Winston is 3.
 The unique ID of Jonathan is 1.
 
+import pandas as pd
+
+def replace_employee_id(employees: pd.DataFrame, employee_uni: pd.DataFrame) -> pd.DataFrame:
+    df = pd.merge(employees, employee_uni, on = 'id', how='left')
+    result = df[['unique_id','name']]
+    return result
