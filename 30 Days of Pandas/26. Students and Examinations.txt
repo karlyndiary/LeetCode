@@ -95,3 +95,11 @@ Bob attended the Math exam 1 time, the Programming exam 1 time, and did not atte
 Alex did not attend any exams.
 John attended the Math exam 1 time, the Physics exam 1 time, and the Programming exam 1 time.
 
+import pandas as pd
+
+def students_and_examinations(students: pd.DataFrame, subjects: pd.DataFrame, examinations: pd.DataFrame) -> pd.DataFrame:
+    df1 = pd.merge(students, subjects, how = 'cross')
+    df2 = examinations.groupby(['student_id', 'subject_name']).size().reset_index(name = 'attended_exams')
+    df = pd.merge(df1, df2, how = 'left', on = ['student_id', 'subject_name']).sort_values(by = ['student_id', 'subject_name'])
+    df['attended_exams'].fillna(0, inplace = True)
+    return df[['student_id','student_name','subject_name','attended_exams']]
