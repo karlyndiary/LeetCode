@@ -61,3 +61,13 @@ Average selling price = Total Price of Product / Number of products sold.
 Average selling price for product 1 = ((100 * 5) + (15 * 20)) / 115 = 6.96
 Average selling price for product 2 = ((200 * 15) + (30 * 30)) / 230 = 16.96
 
+import pandas as pd
+
+def average_selling_price(prices: pd.DataFrame, units_sold: pd.DataFrame) -> pd.DataFrame:
+    df = pd.merge(prices, units_sold, how = 'inner', on = 'product_id')
+    df = df[(df['purchase_date'] >= df['start_date']) & (df['purchase_date'] <= df['end_date'])]
+    df['total_revenue'] = df['price']*df['units']
+    df1 = df.groupby('product_id').agg({'total_revenue':'sum', 'units':'sum'})
+    df1['average_price'] = (df1['total_revenue'] / df1['units']).round(2)
+    result = df1.reset_index()[['product_id', 'average_price']]
+    return result
