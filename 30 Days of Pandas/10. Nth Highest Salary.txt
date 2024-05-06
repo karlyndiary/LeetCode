@@ -45,3 +45,15 @@ Output:
 +------------------------+
 | null                   |
 +------------------------+
+
+import pandas as pd
+
+def nth_highest_salary(employee: pd.DataFrame, N: int) -> pd.DataFrame:
+    if N <= 0:
+        return pd.DataFrame({f'getNthHighestSalary({N})': [None]})
+    unique_salary = employee['salary'].drop_duplicates().sort_values(ascending = False)
+    if len(unique_salary) >= N:
+        nth_high_salary = unique_salary.iloc[N-1]
+    else:
+        nth_high_salary = None
+    return pd.DataFrame({f'getNthHighestSalary({N})': [nth_high_salary]})
