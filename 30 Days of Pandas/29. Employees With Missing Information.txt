@@ -59,3 +59,8 @@ Employees 1, 2, 4, and 5 are working at this company.
 The name of employee 1 is missing.
 The salary of employee 2 is missing.
 
+import pandas as pd
+
+def find_employees(employees: pd.DataFrame, salaries: pd.DataFrame) -> pd.DataFrame:
+    df = pd.merge(employees, salaries, how = 'outer', on = 'employee_id')
+    return df[df.isna().any(axis=1)][['employee_id']].sort_values(by = 'employee_id')    
