@@ -57,3 +57,9 @@ Output:
 +------------+----------+--------+
 Explanation: Max and Jim both have the highest salary in the IT department and Henry has the highest salary in the Sales department.
 
+import pandas as pd
+
+def department_highest_salary(employee: pd.DataFrame, department: pd.DataFrame) -> pd.DataFrame:
+    df = pd.merge(employee, department, how = 'inner', left_on = 'departmentId', right_on = 'id', suffixes = ('_emp','_dept'))
+    df = df.rename(columns = {'name_emp':'Employee','name_dept':'Department','salary':'Salary'})[['Department', 'Employee', 'Salary']]
+    return df[df['Salary'] == df.groupby(['Department'])['Salary'].transform(max)]
