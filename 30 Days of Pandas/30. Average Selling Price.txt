@@ -64,10 +64,10 @@ Average selling price for product 2 = ((200 * 15) + (30 * 30)) / 230 = 16.96
 import pandas as pd
 
 def average_selling_price(prices: pd.DataFrame, units_sold: pd.DataFrame) -> pd.DataFrame:
-    df1 = prices.merge(units_sold, on='product_id', how='left')
+    df1 = pd.merge(prices, units_sold, on ='product_id', how = 'left')
     df1 = df1[(df1.purchase_date >= df1.start_date) & (df1.purchase_date <= df1.end_date)]
     df1['unit_total_price'] = df1.price * df1.units
-    df1 = df1.groupby('product_id', as_index=False).agg(total_price='unit_total_price','sum'), total_units=('units','sum'))
-    df1['average_price'] = round(df1.total_price/df1.total_units, 2)
-    df2 = prices.merge(df1, on='product_id', how='left')
+    df1 = df1.groupby('product_id', as_index = False).agg(total_price = ('unit_total_price', 'sum'), total_units = ('units','sum'))
+    df1['average_price'] = round(df1.total_price/df1.total_units,2)
+    df2 = pd.merge(prices, df1, on = 'product_id', how = 'left')
     return df2[['product_id','average_price']].fillna(0).drop_duplicates()
