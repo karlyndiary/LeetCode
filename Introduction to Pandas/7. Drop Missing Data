@@ -31,3 +31,8 @@ Output:
 +------------+---------+-----+
 Explanation: 
 Student with id 217 havs empty value in the name column, so it will be removed.
+
+import pandas as pd
+
+def dropMissingData(students: pd.DataFrame) -> pd.DataFrame:
+    return students.dropna(subset='name')
