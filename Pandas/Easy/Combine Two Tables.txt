@@ -56,3 +56,7 @@ Explanation:
 There is no address in the address table for the personId = 1 so we return null in their city and state.
 addressId = 1 contains information about the address of personId = 2.
 
+import pandas as pd
+def combine_two_tables(person: pd.DataFrame, address: pd.DataFrame) -> pd.DataFrame:
+    df = pd.merge(person, address, how = 'left', on = 'personId')[['firstName', 'lastName', 'city', 'state']]
+    return df
